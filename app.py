@@ -7,12 +7,15 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = "jobsecret"
 
-# ================= DATABASE =================
+# ================= DATABASE ================
+
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="job_search_system"
+    host=os.environ["DB_HOST"],
+    port=int(os.environ.get("DB_PORT", 3306)),
+    user=os.environ["DB_USER"],
+    password=os.environ["DB_PASSWORD"],
+    database=os.environ["DB_NAME"],
+    ssl_ca=os.environ.get("DB_SSL_CA") or None
 )
 
 cursor = db.cursor(dictionary=True)
