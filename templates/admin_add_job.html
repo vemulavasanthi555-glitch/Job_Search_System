@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Add Job</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+background:white;
+padding:40px;
+border-radius:12px;
+width:320px;
+box-shadow:0px 4px 10px rgba(0,0,0,0.1);
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#2ecc71;
+color:white;
+border:none;
+border-radius:6px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Add Job </h2>
+
+<form method="POST">
+
+<input type="text" name="title" placeholder="Job Title" required>
+
+<input type="text" name="company" placeholder="Company" required>
+
+<input type="text" name="location" placeholder="Location" required>
+
+<input type="text" name="salary" placeholder="Salary">
+
+<textarea name="description" placeholder="Description"></textarea>
+
+<button type="submit">Add Job</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

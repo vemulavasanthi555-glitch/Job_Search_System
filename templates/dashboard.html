@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+        }
+
+        .navbar {
+            background: #1e293b;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .job-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .job-card h3 {
+            margin-top: 0;
+        }
+
+        .apply-btn {
+            background: #2563eb;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .apply-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 250px;
+        }
+
+        button {
+            padding: 8px 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h2>Job Search</h2>
+    <div>
+        <a href="{{ url_for('my_applications') }}">My Applications</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="search-box">
+        <form method="GET">
+            <input type="text" name="search" placeholder="Search jobs">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <!-- ⭐ Recommended Jobs Section -->
+<h2 style="margin-top:30px;">⭐ Recommended Jobs For You</h2>
+
+{% if recommended_jobs and recommended_jobs|length > 0 %}
+
+    {% for job in recommended_jobs %}
+    <div style="
+        background:#e0f2fe;
+        padding:20px;
+        margin-bottom:20px;
+        border-radius:8px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.08);
+        border-left:6px solid #0284c7;
+    ">
+        <h3>{{ job['title'] }}</h3>
+
+        <p><b>Company:</b> {{ job['company'] }}</p>
+        <p><b>Location:</b> {{ job['location'] }}</p>
+        <p><b>Salary:</b> {{ job['salary'] }}</p>
+        <p><b>Category:</b> {{ job['category'] }}</p>
+        <p><b>Description:</b> {{ job['description'] }}</p>
+
+        <a href="{{ url_for('applications_form', job_id=job['id']) }}">
+            <button style="
+                background:#0284c7;
+                color:white;
+                padding:8px 15px;
+                border:none;
+                border-radius:5px;
+                cursor:pointer;">
+                Apply Now
+            </button>
+        </a>
+    </div>
+    {% endfor %}
+
+{% else %}
+    <p style="color:gray;">No recommended jobs found based on your skills.</p>
+{% endif %}
+
+    <h2>Available Jobs</h2>
+
+    {% for job in jobs %}
+    <div class="job-card">
+        <h3>{{ job['title'] }}</h3>
+        <p><b>Company:</b> {{ job['company'] }}</p>
+        <p><b>Location:</b> {{ job['location'] }}</p>
+        <p><b>Salary:</b> {{ job['salary'] }}</p>
+        <p><b>Category:</b> {{ job['category'] }}</p>
+
+        <a href="{{ url_for('applications_form', job_id=job['id']) }}">
+            <button class="apply-btn">Apply Now</button>
+        </a>
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>s

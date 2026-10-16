@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    background:#f4f6f9;
+    text-align:center;
+}
+
+table{
+    width:95%;
+    margin:auto;
+    border-collapse: collapse;
+    background:white;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+}
+
+tr:nth-child(even){
+    background:#f2f2f2;
+}
+
+.approved{
+    color:green;
+    font-weight:bold;
+}
+
+.rejected{
+    color:red;
+    font-weight:bold;
+}
+
+.pending{
+    color:orange;
+    font-weight:bold;
+}
+
+button{
+    padding:6px 12px;
+    margin:3px;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+.approve-btn{
+    background:green;
+    color:white;
+}
+
+.reject-btn{
+    background:red;
+    color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<a href="{{ url_for('admin_add_job') }}">
+<button>Add Job</button>
+</a>
+
+<a href="{{ url_for('admin_logout') }}">
+<button style="background:black;color:white;">Logout</button>
+</a>
+
+<br><br>
+
+<h3>Applications Table</h3>
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Need of Job</th>
+<th>Resume</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+{% if applications %}
+
+{% for app in applications %}
+<tr>
+
+<td>{{ app['name'] }}</td>
+<td>{{ app['email'] }}</td>
+<td>{{ app['phone_no'] }}</td>
+<td>{{ app['need_of_job'] }}</td>
+
+<td>
+
+{% if app['resume'] %}
+
+<div style="display:flex; flex-direction:column; gap:8px;">
+
+<a href="{{ url_for('static', filename='resumes/' + app['resume']) }}"
+target="_blank"
+style="
+background:#3498db;
+color:white;
+padding:6px 12px;
+border-radius:6px;
+text-decoration:none;
+text-align:center;">
+👁 View Resume
+</a>
+
+<a href="{{ url_for('download_resume', filename=app['resume']) }}"
+style="
+background:#27ae60;
+color:white;
+padding:6px 12px;
+border-radius:6px;
+text-decoration:none;
+text-align:center;">
+⬇ Download Resume
+</a>
+
+</div>
+
+{% else %}
+
+<span style="color:red;font-weight:bold;">
+No Resume
+</span>
+
+{% endif %}
+
+</td>
+
+
+
+    
+
+    
+    
+
+
+<td>
+{% if app['status']=='Approved' %}
+<span class="approved">{{ app['status'] }}</span>
+
+{% elif app['status']=='Rejected' %}
+<span class="rejected">{{ app['status'] }}</span>
+
+{% else %}
+<span class="pending">{{ app['status'] }}</span>
+{% endif %}
+</td>
+
+<td>
+<a href="{{ url_for('update_status', id=app['id'], status='Approved') }}">
+<button class="approve-btn">Approve</button>
+</a>
+
+<a href="{{ url_for('update_status', id=app['id'], status='Rejected') }}">
+<button class="reject-btn">Reject</button>
+</a>
+</td>
+
+</tr>
+{% endfor %}
+
+{% else %}
+<tr>
+<td colspan="7">No Applications Found</td>
+</tr>
+{% endif %}
+
+</table>
+
+<br><br>
+
+<h3>Jobs Table</h3>
+
+<table>
+
+<tr>
+<th>Title</th>
+<th>Company</th>
+<th>Location</th>
+<th>Salary</th>
+<th>Description</th>
+</tr>
+
+{% if jobs %}
+
+{% for job in jobs %}
+<tr>
+<td>{{ job['title'] }}</td>
+<td>{{ job['company'] }}</td>
+<td>{{ job['location'] }}</td>
+<td>{{ job['salary'] }}</td>
+<td>{{ job['description'] }}</td>
+</tr>
+{% endfor %}
+
+{% else %}
+<tr>
+<td colspan="5">No Jobs Found</td>
+</tr>
+{% endif %}
+
+</table>
+
+</body>
+</html>

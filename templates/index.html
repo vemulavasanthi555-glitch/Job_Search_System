@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Job Search System</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+margin:0;
+}
+
+/* Navbar */
+.navbar{
+background:#2c3e50;
+color:white;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* Buttons */
+button{
+padding:12px 18px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin:5px;
+}
+
+.loginbtn{
+background:#3498db;
+color:white;
+}
+
+.registerbtn{
+background:#2ecc71;
+color:white;
+}
+
+.adminbtn{
+background:#f39c12;
+color:white;
+}
+
+/* Quotes Section */
+.quote{
+text-align:center;
+margin-top:120px;
+color:#2c3e50;
+font-style:italic;
+font-size:24px;
+line-height:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+
+<h2>Job Search System 💙</h2>
+
+<div>
+
+<a href="/login">
+<button class="loginbtn">User Login</button>
+</a>
+
+<a href="/register">
+<button class="registerbtn">Register</button>
+</a>
+
+<a href="/admin_login">
+<button class="adminbtn">Admin Login</button>
+</a>
+
+</div>
+
+</div>
+
+
+<!-- Quotes Section -->
+<div class="quote">
+
+<p id="quoteText"></p>
+
+</div>
+
+
+<script>
+
+const quotes = [
+"Search. Apply. Achieve 💙🔥",
+"Find your dream job with skills 😎🔥",
+"Opportunities are waiting for you ⭐⭐⭐⭐⭐",
+"Your future starts here 🚀🔥",
+"Stay focused, stay strong 💙🔥"
+];
+
+let index = 0;
+
+function changeQuote(){
+document.getElementById("quoteText").innerText = quotes[index];
+index = (index + 1) % quotes.length;
+}
+
+setInterval(changeQuote,3000);
+changeQuote();
+
+</script>
+
+</body>
+</html>
